@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holiday_planner/holiday_view.dart';
 import 'package:holiday_planner/model/holiday_model.dart';
+import 'package:holiday_planner/navigation.dart';
 
 void main() {
   runApp(const MainApp());
@@ -17,6 +18,7 @@ class MainApp extends StatelessWidget {
           useMaterial3: true,
         ),
         themeMode: ThemeMode.dark,
-        home: HolidayView(holiday: HolidayModel.example()));
+        home: Navigation(),
+    );
   }
 }
