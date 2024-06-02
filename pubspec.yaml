@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  localstore: ^1.4.0
   timelines: ^0.1.0
 
 dev_dependencies:

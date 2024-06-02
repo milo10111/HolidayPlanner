@@ -26,7 +26,7 @@ class HolidayCard extends StatelessWidget {
                   topRight: Radius.circular(10.0),
                 ),
                 child: Image.network(
-                  "https://picsum.photos/id/57/1920/1080",
+                  HolidayModel.example().photoURL,
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: 200,
