@@ -1,17 +1,19 @@
+import 'dart:math';
+
 import 'package:holiday_planner/model/event_model.dart';
 
 class HolidayModel {
   String name;
   DateTime startDate;
   DateTime endDate;
-  String imageURL;
+  String imageURL =
+      "https://picsum.photos/seed/${Random().nextInt(10)}/200/300";
   List<EventModel> events;
 
   HolidayModel({
     required this.name,
     required this.startDate,
     required this.endDate,
-    this.imageURL = "https://picsum.photos/200",
     this.events = const [],
   });
 
@@ -50,7 +52,6 @@ class HolidayModel {
       name: holiday["name"],
       startDate: DateTime.parse(holiday["startDate"]),
       endDate: DateTime.parse(holiday["endDate"]),
-      imageURL: holiday["imageURL"],
       events: (holiday["events"] as List)
           .map<EventModel>(
               (event) => EventModel.fromJson(event as Map<String, dynamic>))
@@ -63,7 +64,6 @@ class HolidayModel {
       "name": holiday.name,
       "startDate": holiday.startDate.toString(),
       "endDate": holiday.endDate.toString(),
-      "imageURL": holiday.imageURL,
       "events":
           holiday.events.map((event) => EventModel.toJson(event)).toList(),
     };
