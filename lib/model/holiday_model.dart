@@ -8,14 +8,13 @@ class HolidayModel {
   DateTime endDate;
   String imageURL =
       "https://picsum.photos/seed/${Random().nextInt(10)}/200/300";
-  List<EventModel> events;
+  List<EventModel> events = List<EventModel>.empty(growable: true);
 
-  HolidayModel({
-    required this.name,
-    required this.startDate,
-    required this.endDate,
-    this.events = const [],
-  });
+  HolidayModel(
+      {required this.name,
+      required this.startDate,
+      required this.endDate,
+      events});
 
   static HolidayModel example() {
     return HolidayModel(
