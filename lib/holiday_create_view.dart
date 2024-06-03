@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 
-class VacationForm extends StatefulWidget {
+class VacationForm  extends StatefulWidget {
   @override
   _VacationFormState createState() => _VacationFormState();
 }
