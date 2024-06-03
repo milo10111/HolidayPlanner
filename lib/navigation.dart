@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holiday_planner/account.dart';
 import 'home.dart';
 
 class Navigation extends StatefulWidget {
@@ -42,9 +43,7 @@ class _NavigationState extends State<Navigation> {
         const Center(
           child: Text("Calendar"),
         ),
-        const Center(
-          child: Text("Account"),
-        )
+        const Account()
       ][currentPageIndex],
     );
   }

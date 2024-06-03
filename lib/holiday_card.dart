@@ -3,7 +3,9 @@ import 'package:holiday_planner/model/holiday_model.dart';
 import 'holiday_view.dart';
 
 class HolidayCard extends StatelessWidget {
-  const HolidayCard({super.key});
+  final HolidayModel holiday;
+
+  const HolidayCard({super.key, required this.holiday});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class HolidayCard extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return HolidayView(
-            holiday: HolidayModel.example(),
+            holiday: holiday,
           );
         }));
       },
@@ -26,25 +28,26 @@ class HolidayCard extends StatelessWidget {
                   topRight: Radius.circular(10.0),
                 ),
                 child: Image.network(
-                  "https://picsum.photos/id/57/1920/1080",
+                  holiday.imageURL,
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: 200,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Holiday in Paris",
-                        style: TextStyle(
+                    Text(holiday.name,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         )),
                     Text(
-                      "December 24, 2022 - December 27, 2022",
-                      style: TextStyle(
+                      "${holiday.startDate.day}/${holiday.startDate.month}/${holiday.startDate.year} - ${holiday.endDate.day}/${holiday.endDate.month}/${holiday.endDate.year}",
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                       ),
