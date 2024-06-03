@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:holiday_planner/model/holiday_model.dart';
 import 'package:holiday_planner/navigation.dart';
+import 'package:localstorage/localstorage.dart';
 
-void main() {
+late final ValueNotifier<HolidayModel> holidayNotifier;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLocalStorage();
+
+  holidayNotifier = ValueNotifier(
+      localStorage.getItem("holiday") as HolidayModel? ??
+          HolidayModel.example());
+  holidayNotifier.addListener(() {
+    localStorage.setItem("holiday", holidayNotifier.value.toString());
+  });
+
   runApp(const MainApp());
 }
 
