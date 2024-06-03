@@ -10,34 +10,38 @@ class EventList extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Timeline.tileBuilder(
+        theme: TimelineThemeData(
+          nodePosition: 0.25,
+        ),
         builder: TimelineTileBuilder.connected(
-      connectionDirection: ConnectionDirection.before,
-      itemCount: events.length,
-      oppositeContentsBuilder: (context, index) {
-        return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              events[index].date.toString().substring(10, 16),
-            ));
-      },
-      contentsBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            child: ListTile(
-              title: Text(events[index].title),
-            ),
-          ),
-        );
-      },
-      indicatorBuilder: (context, index) {
-        return DotIndicator(
-          color: theme.colorScheme.primary,
-        );
-      },
-      connectorBuilder: (context, index, type) {
-        return SolidLineConnector(color: theme.colorScheme.primary);
-      },
-    ));
+          connectionDirection: ConnectionDirection.before,
+          itemCount: events.length,
+          oppositeContentsBuilder: (context, index) {
+            return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  events[index].date.toString().substring(0, 16),
+                ));
+          },
+          contentsBuilder: (context, index) {
+            return Card(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: ListTile(
+                  title: Text(events[index].title),
+                  subtitle: Text(events[index].description),
+                ),
+              ),
+            );
+          },
+          indicatorBuilder: (context, index) {
+            return DotIndicator(
+              color: theme.colorScheme.primary,
+            );
+          },
+          connectorBuilder: (context, index, type) {
+            return SolidLineConnector(color: theme.colorScheme.primary);
+          },
+        ));
   }
 }

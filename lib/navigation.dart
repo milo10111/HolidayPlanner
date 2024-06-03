@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holiday_planner/account.dart';
+import 'package:holiday_planner/calendar_view.dart';
 import 'home.dart';
 
 class Navigation extends StatefulWidget {
@@ -40,9 +41,7 @@ class _NavigationState extends State<Navigation> {
       ),
       body: <Widget>[
         const Home(),
-        const Center(
-          child: Text("Calendar"),
-        ),
+        const CalendarView(),
         const Account()
       ][currentPageIndex],
     );

@@ -13,7 +13,7 @@ class HolidayCard extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return HolidayView(
-            holiday: holiday,
+            holidayId: holiday.hashCode.toString(),
           );
         }));
       },

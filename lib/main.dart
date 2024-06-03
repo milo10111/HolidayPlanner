@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:holiday_planner/model/holiday_model.dart';
 import 'package:holiday_planner/navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:holiday_planner/holiday_provider.dart';
 import 'package:localstorage/localstorage.dart';
-
-late final ValueNotifier<HolidayModel> holidayNotifier;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -8,25 +8,31 @@ class HolidayProvider extends ChangeNotifier {
   late List<HolidayModel> _holidays;
 
   HolidayProvider() {
-    _initHolidays();
+    _holidays = [];
+    readHolidaysFromStorage();
   }
 
-  void _initHolidays() {
-    if (localStorage.getItem("holidays") == null) {
-      _holidays = HolidayModel.exampleList();
-      setHolidaysToLocalstorage();
-    } else {
-      getHolidaysFromLocalstorage();
+  void sortHolidayEvents() {
+    for (var holiday in _holidays) {
+      holiday.events.sort((a, b) => a.date.compareTo(b.date));
     }
+  }
+
+  void readHolidaysFromStorage() {
+    var storedHolidays = localStorage.getItem("holidays");
+    if (storedHolidays == null) {
+      _holidays = HolidayModel.exampleList();
+      writeHolidaysToStorage();
+    } else {
+      _holidays = jsonDecode(storedHolidays)
+          .map<HolidayModel>((holiday) => HolidayModel.fromJson(holiday))
+          .toList();
+    }
+    sortHolidayEvents();
     notifyListeners();
   }
 
-  void getHolidaysFromLocalstorage() =>
-      _holidays = jsonDecode(localStorage.getItem("holidays") as String)
-          .map<HolidayModel>((holiday) => HolidayModel.fromJson(holiday))
-          .toList();
-
-  void setHolidaysToLocalstorage() {
+  void writeHolidaysToStorage() {
     var json =
         _holidays.map((holiday) => HolidayModel.toJson(holiday)).toList();
     localStorage.setItem("holidays", jsonEncode(json).toString());
@@ -39,27 +45,28 @@ class HolidayProvider extends ChangeNotifier {
   }
 
   void updateHolidays(HolidayModel newHolidayModel) {
-    _holidays.forEach((holiday) {
+    for (var holiday in _holidays) {
       if (holiday.hashCode == newHolidayModel.hashCode) {
         holiday.name = newHolidayModel.name;
         holiday.startDate = newHolidayModel.startDate;
         holiday.endDate = newHolidayModel.endDate;
         holiday.imageURL = newHolidayModel.imageURL;
+        holiday.events = newHolidayModel.events;
       }
-    });
-    setHolidaysToLocalstorage();
+    }
+    writeHolidaysToStorage();
     notifyListeners();
   }
 
   void createHoliday(HolidayModel holidayModel) {
     _holidays.add(holidayModel);
-    setHolidaysToLocalstorage();
+    writeHolidaysToStorage();
     notifyListeners();
   }
 
   void deleteHoliday(String id) {
     _holidays.removeWhere((holiday) => holiday.hashCode.toString() == id);
-    setHolidaysToLocalstorage();
+    writeHolidaysToStorage();
     notifyListeners();
   }
 }
