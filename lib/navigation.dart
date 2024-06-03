@@ -10,7 +10,7 @@ class Navigation extends StatefulWidget {
 }
 
 class _NavigationState extends State<Navigation> {
-  int currentPageIndex = 2;
+  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +43,7 @@ class _NavigationState extends State<Navigation> {
         const Center(
           child: Text("Calendar"),
         ),
-        const Account(
-         
-        )
+        const Account()
       ][currentPageIndex],
     );
   }
