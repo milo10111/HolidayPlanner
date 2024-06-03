@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:holiday_planner/holiday_provider.dart';
+import 'package:holiday_planner/model/holiday_model.dart';
+import 'package:provider/provider.dart';
 
 class HolidayCreateView extends StatefulWidget {
   const HolidayCreateView({super.key});
@@ -12,6 +15,25 @@ class HolidayCreateViewState extends State<HolidayCreateView> {
   final _vacationNameController = TextEditingController();
   DateTime? _startDate;
   DateTime? _endDate;
+
+  void createHoliday(
+      name, startDate, endDate, HolidayProvider holidayProvider) {
+    if (_formKey.currentState!.validate()) {
+      if (_startDate == null || _endDate == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please select dates')),
+        );
+      } else {
+        HolidayModel holiday =
+            HolidayModel(name: name, startDate: startDate, endDate: endDate);
+        holidayProvider.createHoliday(holiday);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Vacation saved!')),
+        );
+        Navigator.pop(context);
+      }
+    }
+  }
 
   Future<void> _selectDate(BuildContext context, bool isStartDate) async {
     final DateTime? picked = await showDatePicker(
@@ -33,6 +55,7 @@ class HolidayCreateViewState extends State<HolidayCreateView> {
 
   @override
   Widget build(BuildContext context) {
+    var holidayProvider = Provider.of<HolidayProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create holiday'),
@@ -71,20 +94,8 @@ class HolidayCreateViewState extends State<HolidayCreateView> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      if (_startDate == null || _endDate == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Please select dates')),
-                        );
-                      } else {
-                        // Handle the vacation saving logic here
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Vacation saved!')),
-                        );
-                        //Go back in router
-                        Navigator.pop(context);
-                      }
-                    }
+                    createHoliday(_vacationNameController.text, _startDate,
+                        _endDate, holidayProvider);
                   },
                   child: const Text('Save holiday'),
                 ),

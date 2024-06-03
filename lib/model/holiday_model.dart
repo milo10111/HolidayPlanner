@@ -38,4 +38,22 @@ class HolidayModel {
       ),
     ];
   }
+
+  static fromJson(holiday) {
+    return HolidayModel(
+      name: holiday["name"],
+      startDate: DateTime.parse(holiday["startDate"]),
+      endDate: DateTime.parse(holiday["endDate"]),
+      imageURL: holiday["imageURL"],
+    );
+  }
+
+  static toJson(HolidayModel holiday) {
+    return {
+      "name": holiday.name,
+      "startDate": holiday.startDate.toString(),
+      "endDate": holiday.endDate.toString(),
+      "imageURL": holiday.imageURL,
+    };
+  }
 }

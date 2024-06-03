@@ -1,4 +1,4 @@
-import 'dart:js_interop';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:holiday_planner/model/holiday_model.dart';
@@ -11,36 +11,55 @@ class HolidayProvider extends ChangeNotifier {
     _initHolidays();
   }
 
-  void _initHolidays() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await initLocalStorage();
-
-    _holidays = localStorage.getItem("holidays") as List<HolidayModel>? ??
-        HolidayModel.exampleList();
-
+  void _initHolidays() {
+    if (localStorage.getItem("holidays") == null) {
+      _holidays = HolidayModel.exampleList();
+      setHolidaysToLocalstorage();
+    } else {
+      getHolidaysFromLocalstorage();
+    }
     notifyListeners();
   }
 
-  List<HolidayModel> get holidays => _holidays;
+  void getHolidaysFromLocalstorage() =>
+      _holidays = jsonDecode(localStorage.getItem("holidays") as String)
+          .map<HolidayModel>((holiday) => HolidayModel.fromJson(holiday))
+          .toList();
+
+  void setHolidaysToLocalstorage() {
+    var json =
+        _holidays.map((holiday) => HolidayModel.toJson(holiday)).toList();
+    localStorage.setItem("holidays", jsonEncode(json).toString());
+  }
+
+  get holidays => _holidays;
 
   HolidayModel getHolidayModelById(String id) {
     return _holidays.firstWhere((holiday) => holiday.hashCode.toString() == id);
   }
 
   void updateHolidays(HolidayModel newHolidayModel) {
-    _holidays.add(newHolidayModel);
-    localStorage.setItem("holidays", _holidays.jsify().toString());
+    _holidays.forEach((holiday) {
+      if (holiday.hashCode == newHolidayModel.hashCode) {
+        holiday.name = newHolidayModel.name;
+        holiday.startDate = newHolidayModel.startDate;
+        holiday.endDate = newHolidayModel.endDate;
+        holiday.imageURL = newHolidayModel.imageURL;
+      }
+    });
+    setHolidaysToLocalstorage();
+    notifyListeners();
   }
 
   void createHoliday(HolidayModel holidayModel) {
     _holidays.add(holidayModel);
-    localStorage.setItem("holidays", _holidays.jsify().toString());
+    setHolidaysToLocalstorage();
     notifyListeners();
   }
 
   void deleteHoliday(String id) {
     _holidays.removeWhere((holiday) => holiday.hashCode.toString() == id);
-    localStorage.setItem("holidays", _holidays.jsify().toString());
+    setHolidaysToLocalstorage();
     notifyListeners();
   }
 }
