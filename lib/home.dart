@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holiday_planner/holiday_list.dart';
+import 'package:holiday_planner/holiday_create_view.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -13,7 +14,11 @@ class Home extends StatelessWidget {
         body: HolidayList(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // Add your onPressed code here!
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HolidayCreateView()),
+            );
           },
           child: const Icon(Icons.add),
         ));

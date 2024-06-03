@@ -46,7 +46,7 @@ class HolidayCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         )),
                     Text(
-                      "${holiday.startDate.day}/${holiday.startDate.month}/${holiday.startDate.year} - ${holiday.endDate.day}/${holiday.endDate.month}/${holiday.endDate.year}",
+                      'From ${'${holiday.startDate.toLocal()}'.split(' ')[0]} to ${'${holiday.endDate.toLocal()}'.split(' ')[0]}.',
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
