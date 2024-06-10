@@ -7,6 +7,7 @@ import 'package:holiday_planner/holiday_provider.dart';
 class HolidayView extends StatelessWidget {
   final String holidayId;
   const HolidayView({Key? key, required this.holidayId}) : super(key: key);
+  // REVIEW: 'key' should be converted to a super parameter
 
   @override
   Widget build(BuildContext context) {

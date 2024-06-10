@@ -22,6 +22,7 @@ class HolidayCreateViewState extends State<HolidayCreateView> {
       if (_startDate == null || _endDate == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Please select dates')),
+          // REVIEW: this could be stored in a separate file, in case of language change
         );
       } else {
         HolidayModel holiday =
@@ -29,6 +30,7 @@ class HolidayCreateViewState extends State<HolidayCreateView> {
         holidayProvider.createHoliday(holiday);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Vacation saved!')),
+          // REVIEW: this could be stored in a separate file, in case of language change
         );
         Navigator.pop(context);
       }
@@ -98,6 +100,7 @@ class HolidayCreateViewState extends State<HolidayCreateView> {
                         _endDate, holidayProvider);
                   },
                   child: const Text('Save holiday'),
+                  // REVIEW: this could be stored in a separate file, in case of language change
                 ),
               ),
             ],

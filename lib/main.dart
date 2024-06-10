@@ -4,6 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:holiday_planner/holiday_provider.dart';
 import 'package:localstorage/localstorage.dart';
 
+// REVIEW (OVERALL):
+// - functionallity to add personal images would be great!
+// - I think there should be no possibility to choose event date that's not included in the holiday period.
+// - there's an unhandled exception thrown when using gestures on 'calendar' tab/page.
+// - 'settings' and 'logout' functionalities are missing, I see it's not implemented yet
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initLocalStorage();
@@ -27,6 +33,7 @@ class MainApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.dark,
       home: Navigation(),
+      // REVIEW: Should be const
     );
   }
 }
