@@ -8,11 +8,13 @@ class About extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("About"),
+        // REVIEW: this data should be stored in a separate file, not hardcoded
       ),
       body: const Column(
         children: [
           Text(
             "Holiday Planner App",
+            // REVIEW: this data should be stored in a separate file, not hardcoded
             style: TextStyle(fontSize: 30),
           ),
           Divider(),
@@ -20,6 +22,7 @@ class About extends StatelessWidget {
           
           spacing: 5,
           children: [ Text("Authors:"), Text("Kacper Ochnik"), Text("Miłosz Grzywacz"), Text("Paweł Zientara")],
+          // REVIEW: this data should be stored in a separate file, not hardcoded
          )
         ],
       ),

@@ -12,6 +12,7 @@ class Home extends StatelessWidget {
           title: const Text('My holiday plans'),
         ),
         body: HolidayList(),
+        // REVIEW: should be a const
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(

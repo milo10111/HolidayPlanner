@@ -48,10 +48,12 @@ class EventCreateViewState extends State<EventCreateView> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
+      // REVIEW ADNOTATION: this calendar range is ok, but you will not plan holidays for past years
     );
     if (pickedDate != null) {
       final TimeOfDay? pickedTime = await showTimePicker(
         context: context,
+        // REVIEW: Don't use 'BuildContext's across async gaps. Try rewriting the code to not use the 'BuildContext', or guard the use with a 'mounted' check
         initialTime: TimeOfDay.now(),
       );
       if (pickedTime != null) {
